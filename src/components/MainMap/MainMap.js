@@ -8,6 +8,9 @@ import {
   CardTitle,
   CardText,
   CardFooter,
+  Button,
+  Row,
+  Col,
 } from "reactstrap";
 // import MapMarker from "../MapMarker/MapMarker";
 // import HeatLayer from "../HeatLayer/HeatLayer";
@@ -19,11 +22,7 @@ class MainMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
-      errorLoading: false,
-      map: null,
-      markedPoly: null,
-      selectedZone: null,
+      markerClustering: false,
       center: {
         lat: 2.9065319,
         lng: 101.6499131,
@@ -56,6 +55,31 @@ class MainMap extends Component {
     return (
       <Card>
         <CardHeader>Markers, HeatMaps, MapCluster</CardHeader>
+        <CardBody>
+          <Row>
+            <Col className="bg-light border">
+              <Button
+                color="primary"
+                onClick={() =>
+                  this.setState({
+                    markerClustering: !this.state.markerClustering,
+                  })
+                }
+              >
+                Marker Clustering
+              </Button>
+            </Col>
+            <Col className="bg-light border">
+              <Button color="primary">Show Markers</Button>
+            </Col>
+            <Col className="bg-light border">
+              <Button color="primary">HeatMap</Button>
+            </Col>
+            <Col className="bg-light border">
+              <Button color="primary">Others</Button>
+            </Col>
+          </Row>
+        </CardBody>
         <LoadScript
           id="script-loader"
           googleMapsApiKey={"AIzaSyDpG-NeL-XGYAduQul2JenVr86HIPITEso"}
@@ -79,7 +103,9 @@ class MainMap extends Component {
               return <MapMarker data={gpsObj} />;
             })} */}
             {/* to do map cluster */}
-            <MapCluster locations={this.state.usersData} />
+            {this.state.markerClustering && (
+              <MapCluster locations={this.state.usersData} />
+            )}
           </GoogleMap>
         </LoadScript>
         <CardBody>

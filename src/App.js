@@ -1,5 +1,6 @@
 import "./App.css";
 import MainMap from "./components/MainMap/MainMap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
