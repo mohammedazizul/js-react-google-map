@@ -33,7 +33,8 @@ class MainMap extends Component {
       showCluster: false,
       data: data,
     };
-    this.handelHeatMapClicked = this.handelHeatMapClicked.bind(this);
+    this.handelMarkerClusterClicked =
+      this.handelMarkerClusterClicked.bind(this);
     this.handelShowMarkersClicked = this.handelShowMarkersClicked.bind(this);
     this.handelHeatMapClicked = this.handelHeatMapClicked.bind(this);
     this.handelOtherClicked = this.handelOtherClicked.bind(this);
