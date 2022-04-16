@@ -1,7 +1,6 @@
 /* global google */
 import React from "react";
 import { HeatmapLayer } from "@react-google-maps/api";
-import data from "../../data/userData";
 // import userLatLngData from "../data/userLatLngData";
 // const gradient = [
 //   "rgba(0, 255, 255, 0)",
@@ -19,22 +18,25 @@ import data from "../../data/userData";
 //   "rgba(191, 0, 31, 1)",
 //   "rgba(255, 0, 0, 1)",
 // ];
-// const options = {
-//   // dissipating: false,
-//   // radius: 0.2,
-//   // opacity: 0.2,
-//   gradient: gradient,
-// };
+const options = {
+  // dissipating: false,
+  // radius: 0.2,
+  // opacity: 0.2,
+  // gradient: gradient,
+  maxIntensity: 1,
+};
 
-function HeatLayer() {
-  console.log(data.length);
-  const coordinates = data.map(
+const HeatLayer = (props) => {
+  const coordinates = props.data.map(
     (data) => new google.maps.LatLng(data.lat, data.lng)
   );
   // options={undefined} default setting
   // options ref: https://developers.google.com/maps/documentation/javascript/reference/visualization#HeatmapLayerOptions
-  // return <HeatmapLayer data={coordinates} options={options} />;
-  return <HeatmapLayer data={coordinates} />;
-}
+  return <HeatmapLayer data={coordinates} options={options} />;
+};
 
 export default HeatLayer;
+
+// more ref:
+// https://github.com/JustFly1984/react-google-maps-api/blob/master/packages/react-google-maps-api-gatsby-example/src/examples/example-heatmap.js
+// https://react-google-maps-api-docs.netlify.app/

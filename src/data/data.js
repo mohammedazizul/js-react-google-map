@@ -1,4 +1,4 @@
-let data = [
+let dataForCluster = [
   {
     lat: 3.192924689266183,
     lng: 101.7583282034558,
@@ -501,4 +501,4 @@ let data = [
   },
 ];
 
-export default data;
+export default dataForCluster;

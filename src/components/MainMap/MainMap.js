@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import data from "../../data/userData";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import data from "../../data/data";
 import {
   Card,
   CardHeader,
@@ -12,17 +11,14 @@ import {
   Row,
   Col,
 } from "reactstrap";
-// import MapMarker from "../MapMarker/MapMarker";
-// import HeatLayer from "../HeatLayer/HeatLayer";
-import MapCluster from "../MapCluster/MapCluster";
-
-// Ref: https://developers.google.com/maps/documentation/javascript/reference
+import HeatInMap from "./HeatInMap/HeatInMap";
+import MarkersInMap from "./MarkersInMap/MarkersInMap";
+import ClusterInMap from "./ClustersInMap/ClustersInMap";
 
 class MainMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      markerClustering: false,
       center: {
         lat: 2.9065319,
         lng: 101.6499131,
@@ -32,23 +28,48 @@ class MainMap extends Component {
         width: "100%",
       },
       zoom: -1,
-      usersData: data,
+      showMarker: false,
+      showHeat: false,
+      showCluster: false,
+      data: data,
     };
+    this.handelHeatMapClicked = this.handelHeatMapClicked.bind(this);
+    this.handelShowMarkersClicked = this.handelShowMarkersClicked.bind(this);
+    this.handelHeatMapClicked = this.handelHeatMapClicked.bind(this);
+    this.handelOtherClicked = this.handelOtherClicked.bind(this);
   }
 
-  // function to lot markers
-  plotMarkers() {
-    let printMarkers = this.state.usersData.map((gpsObj) => {
-      return (
-        <Marker
-          position={{
-            lat: parseFloat(gpsObj.lat),
-            lng: parseFloat(gpsObj.lng),
-          }}
-        />
-      );
+  handelMarkerClusterClicked() {
+    this.setState({
+      showCluster: true,
+      showMarker: false,
+      showHeat: false,
     });
-    return printMarkers;
+  }
+
+  handelShowMarkersClicked() {
+    this.setState({
+      showCluster: false,
+      showMarker: true,
+      showHeat: false,
+    });
+  }
+
+  handelHeatMapClicked() {
+    this.setState({
+      showCluster: false,
+      showMarker: false,
+      showHeat: true,
+    });
+  }
+
+  handelOtherClicked() {
+    this.setState({
+      showCluster: false,
+      showMarker: false,
+      showHeat: false,
+    });
+    alert("Sorry, this feature is underdevelopment!");
   }
 
   render() {
@@ -60,54 +81,31 @@ class MainMap extends Component {
             <Col className="bg-light border">
               <Button
                 color="primary"
-                onClick={() =>
-                  this.setState({
-                    markerClustering: !this.state.markerClustering,
-                  })
-                }
+                onClick={() => this.handelMarkerClusterClicked()}
               >
                 Marker Clustering
               </Button>
             </Col>
             <Col className="bg-light border">
-              <Button color="primary">Show Markers</Button>
+              <Button color="primary" onClick={this.handelShowMarkersClicked}>
+                Show Markers
+              </Button>
             </Col>
             <Col className="bg-light border">
-              <Button color="primary">HeatMap</Button>
+              <Button color="primary" onClick={this.handelHeatMapClicked}>
+                HeatMap
+              </Button>
             </Col>
             <Col className="bg-light border">
-              <Button color="primary">Others</Button>
+              <Button color="primary" onClick={this.handelOtherClicked}>
+                Others
+              </Button>
             </Col>
           </Row>
         </CardBody>
-        <LoadScript
-          id="script-loader"
-          googleMapsApiKey={"AIzaSyDpG-NeL-XGYAduQul2JenVr86HIPITEso"}
-          language="en"
-          region="us"
-          libraries={["visualization"]} // required for HeatMap
-        >
-          <GoogleMap
-            id="googleHeatMap"
-            mapContainerStyle={this.state.mapContainerStyle}
-            center={this.state.center}
-            zoom={10}
-          >
-            {/* to display heatmap */}
-            {/* <HeatLayer /> */}
-            {/* to plot map marker */}
-            {/* A. using function */}
-            {/* {this.plotMarkers()} */}
-            {/* B. using functional component */}
-            {/* {this.state.usersData.map((gpsObj) => {
-              return <MapMarker data={gpsObj} />;
-            })} */}
-            {/* to do map cluster */}
-            {this.state.markerClustering && (
-              <MapCluster locations={this.state.usersData} />
-            )}
-          </GoogleMap>
-        </LoadScript>
+        {this.state.showCluster && <ClusterInMap data={this.state.data} />}
+        {this.state.showHeat && <HeatInMap data={this.state.data} />}
+        {this.state.showMarker && <MarkersInMap data={this.state.data} />}
         <CardBody>
           <CardTitle tag="h2">Google Maps JavaScript API v3</CardTitle>
           <CardText>Library: @react-google-maps/api</CardText>

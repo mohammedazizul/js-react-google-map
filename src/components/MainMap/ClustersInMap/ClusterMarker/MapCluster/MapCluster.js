@@ -1,6 +1,6 @@
 import { MarkerClusterer } from "@react-google-maps/api";
 import React from "react";
-import ClusterMarker from "../ClusterMarker/ClusterMarker";
+import ClusterMarker from "../ClusterMarker";
 
 const MapCluster = (props) => {
   return (

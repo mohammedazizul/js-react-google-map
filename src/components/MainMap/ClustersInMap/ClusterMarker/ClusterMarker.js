@@ -2,7 +2,6 @@ import { Marker } from "@react-google-maps/api";
 import React from "react";
 
 const ClusterMarker = (props) => {
-  // console.log(props);
   // to generate key
   // function createKey(location) {
   //   return location.lat + location.lng;
