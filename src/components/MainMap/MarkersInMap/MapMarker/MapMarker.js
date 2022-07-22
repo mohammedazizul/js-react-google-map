@@ -11,9 +11,9 @@ const MapMarker = (props) => {
         lng: parseFloat(props.data.lng),
       }}
       // Configuration of GpsObj Marker
-      title={props.data.userId}
-      name={props.data.userId}
-      key={props.data.userId}
+      title={props.data.countryName}
+      name={props.data.countryName}
+      key={props.data.countryCode}
       // icon={statusIcon}
     />
   );

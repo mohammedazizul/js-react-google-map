@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import data from "../../data/data";
+// import data from "../../data/data";
+import countriesData from "../../data/countryData";
 import {
   Card,
   CardHeader,
@@ -31,7 +32,7 @@ class MainMap extends Component {
       showMarker: false,
       showHeat: false,
       showCluster: false,
-      data: data,
+      data: countriesData,
     };
     this.handelMarkerClusterClicked =
       this.handelMarkerClusterClicked.bind(this);

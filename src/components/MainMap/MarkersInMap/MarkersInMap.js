@@ -18,7 +18,7 @@ class MarkersInMap extends Component {
     };
   }
 
-  // function to lot markers
+  // function to plot markers
   //   plotMarkers() {
   //     let printMarkers = this.props.data.map((gpsObj) => {
   //       return (
